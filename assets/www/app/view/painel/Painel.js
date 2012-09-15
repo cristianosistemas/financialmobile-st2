@@ -1,7 +1,8 @@
 Ext.define("FinancialMobile.view.painel.Painel",{
 	extend : 'Ext.Panel',
 	alias : [ 'widget.painel' ],
-	requires: ['Ext.chart.Chart', 'FinancialMobile.view.manter.DespesaReceita', 'FinancialMobile.utils.NumberUtils', 'Ext.XTemplate', 'FinancialMobile.comp.MonthToolBar'],
+	requires: ['Ext.chart.Chart', 'Ext.chart.series.Bar', 'Ext.chart.axis.Numeric', 'FinancialMobile.view.manter.DespesaReceita', 
+	           'FinancialMobile.utils.NumberUtils', 'Ext.XTemplate', 'FinancialMobile.comp.MonthToolBar'],
 	config : {
 	    layout: {
             type: 'card',
@@ -21,18 +22,43 @@ Ext.define("FinancialMobile.view.painel.Painel",{
 								xtype : 'chart',
 								name : 'chart_despesas_receitas',
 								layout: 'auto',
-								themeCls : 'bar1',
-								theme : 'Demo',
 								store : new Ext.data.Store({
 											fields : ['name', 'valor']
 										}),
 								animate : true,
 								shadow: false,
+							 series: [
+						                {
+						                    type: 'bar',
+						                    renderer: function (sprite, storeItem, barAttr, i, store) {
+						                        if(storeItem.get('name') === 'Receitas'){
+						                        	barAttr.fill = '#00C906';
+						                        }else if(storeItem.get('name') === 'Despesas'){
+						                        	barAttr.fill = '#FF0202';
+						                        }else if(storeItem.get('name') === 'Diferenca'){
+						                        	if(storeItem.get('valor') > 0){
+														barAttr.fill = '#00C906';
+						                        	}else{
+						                        		barAttr.fill = '#FF0202';
+						                        	}
+						                        }
+						                        return barAttr;
+						                    },
+						                    xField: 'name',
+						                    yField: ['valor']//,
+						                    //axis: 'bottom',
+						                   // highlight: true,
+						                    //showInLegend: true,
+						                    //label: 'valor'
+						                }
+						            ],
 						        axes: [
 					                {
-					                    type: 'Numeric',
-					                    position: 'bottom',
+					                    type: 'numeric',
+					                    position: 'left',
 					                    fields: ['valor'],
+					                    minimum: 0,
+				                        maximum: 10000,
 					                    label: {
 					                        renderer: function (v) {
 					                            return v.toFixed(0);
@@ -40,40 +66,9 @@ Ext.define("FinancialMobile.view.painel.Painel",{
 					                    }
 					                },
 					                {
-					                    type: 'Category',
-					                    position: 'left',
-					                    fields: ['name']
-					                }
-					            ],
-					            series: [
-					                {
-					                    type: 'bar',
-					                    renderer: function (sprite, storeItem, barAttr, i, store) {
-					                    	console.log('Renderer Grafico');
-					                    	console.log(sprite);
-					                    	console.log(storeItem.get('name'));
-					                    	console.log(i);
-					                    	console.log(store);
-					                    	
-					                        if(storeItem.get('name') === 'Receitas'){
-					                        	barAttr.fill = '#00C906';
-					                        }else if(storeItem.get('name') === 'Despesas'){
-					                        	barAttr.fill = '#FF0202';
-					                        }else if(storeItem.get('name') === 'Diferenca'){
-					                        	if(storeItem.get('valor') > 0){
-													barAttr.fill = '#00C906';
-					                        	}else{
-					                        		barAttr.fill = '#FF0202';
-					                        	}
-					                        }
-					                        return barAttr;
-					                    },
-					                    xField: 'name',
-					                    yField: ['valor'],
-					                    axis: 'bottom',
-					                    highlight: true,
-					                    showInLegend: true,
-					                    label: 'valor'
+					                    type: 'category',
+					                    position: 'bottom',
+					                    fields: 'name'
 					                }
 					            ]
 							}

@@ -100,11 +100,16 @@ Ext.define('FinancialMobile.controller.Principal', {
   			callback : function(data, obj2, obj3) {
   				var listaReceitasDespesas = this.getPainel().down('list[name="receitas_despesas_grid"]');
   				var graficoReceitaDespesas = this.getPainel().down('chart[name="chart_despesas_receitas"]');
-
+  				
+  				
   				Ext.Viewport.setMasked(false);
 
   				listaReceitasDespesas._store.setData(data);
+  				
+  				console.log('Data');
+  				console.log(data);
   				graficoReceitaDespesas._store.setData(data);
+  				graficoReceitaDespesas.redraw(true);
   			}
 		  });
     }

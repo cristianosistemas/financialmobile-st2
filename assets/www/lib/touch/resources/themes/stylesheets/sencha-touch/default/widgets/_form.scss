@@ -160,6 +160,7 @@ $form-scrollable-fields: '.x-field-slider, .x-field-toggle';
 
   //  Ext.field.Field
   .x-field {
+    @include display-box;
     min-height: $form-field-height;
     background: #fff;
 
@@ -439,16 +440,8 @@ $form-scrollable-fields: '.x-field-slider, .x-field-toggle';
     }
   }
 
-  .x-phone .x-select-overlay {
-    min-width: 14em;
-    min-height: 12.5em;
-  }
-
   // Ext.field.Select
   .x-select-overlay {
-    min-width: 18em;
-    min-height: 22em;
-
     .x-list-item-label {
       height: 2.6em;
     }
@@ -463,7 +456,7 @@ $form-scrollable-fields: '.x-field-slider, .x-field-toggle';
         margin-right: 2.6em;
       }
 
-      .x-list-item-label {
+      .x-list-item-inner {
         &:before {
           @include checkmark(rgba(0,0,0,.3));
           margin-top: -.8em;

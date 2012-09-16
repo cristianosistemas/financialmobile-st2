@@ -10,7 +10,7 @@
     max-height: 90%;
     padding: 0.8em;
     margin: .5em;
-    -webkit-box-shadow: rgba(#000, .4) 0 .1em .5em;
+    @include box-shadow(rgba(#000, .4) 0 .1em .5em);
     @if $include-border-radius { @include border-radius($panel-border-radius); }
     border: .15em solid $base-color;
 
@@ -53,7 +53,7 @@
 
     .x-toolbar {
       background: transparent none;
-      -webkit-box-shadow: none;
+      @include box-shadow(none);
 
       &.x-docked-top {
         border-bottom: 0;
@@ -66,7 +66,8 @@
     }
 
     .x-field {
-      min-height:2em;
+      margin-bottom: 1.2em;
+      min-height: 2em;
       background: #fff;
       @if $include-border-radius { @include border-radius(.2em); }
     }

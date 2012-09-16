@@ -35,13 +35,13 @@ $include-toolbar-uis: $include-default-uis !default;
 
   .x-toolbar {
     padding: 0 $toolbar-spacing;
-    overflow: hidden;
+    //overflow: hidden;
     position: relative;
-    height: $global-row-height;
+    //height: $global-row-height;
 
-    & > * {
-      z-index: 1;
-    }
+    //& > * {
+    //  z-index: 1;
+    //}
 
     &.x-docked-top {
       border-bottom: .1em solid;
